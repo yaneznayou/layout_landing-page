@@ -41,9 +41,6 @@ a {
 }
 
 .header {
-  background-image: url("girl-background--small.22194049.png");
-  background-position: center;
-  background-size: cover;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
@@ -51,14 +48,20 @@ a {
   display: flex;
 }
 
+.header__background {
+  background-image: url("girl-background--small.22194049.png");
+  background-position: center;
+  background-size: cover;
+}
+
 @media (width >= 745px) {
-  .header {
+  .header__background {
     background-image: url("girl-background.8eb778df.png");
   }
 }
 
 @media (width >= 1260px) {
-  .header {
+  .header__background {
     background-image: url("girl-background.8eb778df.png");
   }
 }
@@ -93,7 +96,6 @@ a {
 
 @media (width >= 1260px) {
   .header {
-    background-image: url("girl-background.8eb778df.png");
     padding: 32px 120px 92px;
   }
 }
@@ -115,12 +117,14 @@ a {
 @media (width >= 745px) {
   .menu {
     padding: 32px 72px 65px;
+    overflow: hidden;
   }
 }
 
 @media (width >= 1260px) {
   .menu {
     padding: 32px 120px 92px;
+    overflow: hidden;
   }
 }
 
@@ -139,6 +143,7 @@ a {
 
 .menu__link {
   color: #292929;
+  scroll-behavior: smooth;
 }
 
 @media (width >= 1260px) {
@@ -155,6 +160,7 @@ a {
     bottom: -4px;
     left: 0;
     right: 0;
+    transform: translate(0);
   }
 }
 
@@ -203,6 +209,15 @@ a {
   right: 0;
 }
 
+.page:has(.menu:target) {
+  width: 100vw;
+  position: fixed;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .header-top {
   justify-content: space-between;
   align-items: center;
@@ -233,12 +248,12 @@ a {
 }
 
 .header-top__burger-menu {
-  cursor: pointer;
   background-image: url("burger_menu.eccbfc23.svg");
   background-position: center;
   background-size: contain;
   width: 24px;
   height: 24px;
+  transition: background-image .3s;
 }
 
 @media (width >= 745px) {
@@ -250,15 +265,32 @@ a {
 
 .header-top__burger-menu:hover {
   background-image: url("burger_menu-hover.43c567eb.svg");
+  transition: scale, all .3s;
+}
+
+.header-top__burger-menu:hover:hover {
+  scale: 1.03;
 }
 
 .header-top__phone {
-  cursor: pointer;
   background-image: url("phone_icon.fbcb39ba.svg");
   background-position: center;
   background-size: contain;
   width: 24px;
   height: 24px;
+}
+
+.header-top__phone:before {
+  opacity: 0;
+  content: "+1 234 555-55-55";
+  color: #292929;
+  width: max-content;
+  transition: opacity .3s;
+  display: block;
+  position: relative;
+  bottom: -50%;
+  right: 10px;
+  transform: translate(-100%, -50%);
 }
 
 @media (width >= 745px) {
@@ -268,10 +300,18 @@ a {
   }
 }
 
+.header-top__phone:hover {
+  transition: scale, all .3s;
+}
+
+.header-top__phone:hover:hover {
+  scale: 1.03;
+}
+
 @media (width >= 1260px) {
   .header-top__phone:hover:before {
     content: "+1 234 555-55-55";
-    color: #292929;
+    opacity: 1;
     width: max-content;
     display: block;
     position: relative;
@@ -367,12 +407,22 @@ a {
 @media (width >= 745px) {
   .product-card__image {
     width: 600px;
+    transition: scale, all .3s;
+  }
+
+  .product-card__image:hover {
+    scale: 1.03;
   }
 }
 
 @media (width >= 1260px) {
   .product-card__image {
     width: 324px;
+    transition: scale, all .3s;
+  }
+
+  .product-card__image:hover {
+    scale: 1.03;
   }
 }
 
@@ -522,29 +572,50 @@ a {
 @media (width >= 745px) {
   .category__image--s {
     width: 184px;
+    transition: scale, all .3s;
+  }
+
+  .category__image--s:hover {
+    scale: 1.03;
   }
 }
 
 @media (width >= 1260px) {
   .category__image--s {
     width: 324px;
+    transition: scale, all .3s;
+  }
+
+  .category__image--s:hover {
+    scale: 1.03;
   }
 }
 
 @media (width >= 745px) {
   .category__image--m {
     width: 392px;
+    transition: scale, all .3s;
+  }
+
+  .category__image--m:hover {
+    scale: 1.03;
   }
 }
 
 @media (width >= 1260px) {
   .category__image--m {
     width: 672px;
+    transition: scale, all .3s;
+  }
+
+  .category__image--m:hover {
+    scale: 1.03;
   }
 }
 
 .category__link {
   color: #292929;
+  scroll-behavior: smooth;
   margin-top: 16px;
   font-size: 18px;
   line-height: 140%;
@@ -686,11 +757,17 @@ a {
   background-color: #f8f8fa;
   border: none;
   border-radius: 8px;
-  padding: 14px 16px;
+  height: 148px;
+  padding-block: 14px;
+  padding-inline: 16px;
   font-family: Space Mono, sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: 140%;
+}
+
+.contact-us__text-area::placeholder {
+  color: #7e7e83;
 }
 
 .contact-us__text-area:hover::placeholder {
@@ -719,6 +796,7 @@ a {
 
 .contact-us__send:hover {
   color: #fff;
+  cursor: pointer;
   background-color: #292929;
   border: none;
 }
@@ -764,8 +842,12 @@ a {
 }
 
 .contacts__value {
-  color: #292929;
+  color: #7e7e83;
   margin-top: 8px;
+}
+
+.contacts__value:hover {
+  color: #292929;
 }
 
 @media (width >= 1260px) {
